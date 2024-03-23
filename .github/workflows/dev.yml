@@ -22,7 +22,8 @@ jobs:
           sudo mkdir -p /opt/nombreDeSuDirectorio
           cd /opt/nombreDeSuDirectorio
           sudo git clone https://${{ secrets.GH_TOKEN }}@github.com/rijmjada/Trello-devSecOps .
-          sudo npm install express pm2
+          sudo npm install express 
+          sudo npm install -g pm2
           sudo pm2 start index.js
           sudo pm2 status
 
