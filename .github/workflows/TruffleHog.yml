@@ -1,20 +1,24 @@
-name: TruffleHog OSS Scan
+name: TruffleHog Scan
 
 on:
   workflow_dispatch:
 
+
 jobs:
   trufflehog_scan:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
       
-      - name: Install TruffleHog OSS
-        run: pip install trufflehog
+      - name: Install TruffleHog
+        run: |
+          pip install trufflehog
       
-      - name: Run TruffleHog OSS Scan
-        run: trufflehog --json . > trufflehog_results.json
+      - name: Run TruffleHog Scan
+        run: |
+          trufflehog --json . > trufflehog_results.json
       
       - name: Upload TruffleHog Results
         uses: actions/upload-artifact@v2
