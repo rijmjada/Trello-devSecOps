@@ -16,10 +16,11 @@ jobs:
           fetch-depth: 0
 
       - name: TruffleHog OSS
+        id: trufflehog_scan
         uses: trufflesecurity/trufflehog@main
         with:
           extra_args: --only-verified --json
 
       - name: Save TruffleHog Report
-        if: always()
+        if: ${{ success() && steps.trufflehog_scan.outputs.has_results == 'true' }}
         run: mv trufflehog_results.json $GITHUB_WORKSPACE
