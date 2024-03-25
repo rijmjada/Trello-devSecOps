@@ -18,8 +18,8 @@ jobs:
       - name: TruffleHog OSS
         uses: trufflesecurity/trufflehog@main
         with:
-          extra_args: --only-verified
+          extra_args: --only-verified --json
 
-      - name: Scan Results Status
-        if: ${{ failure() }}
-        run: exit 1
+      - name: Save TruffleHog Report
+        if: always()
+        run: mv trufflehog_results.json $GITHUB_WORKSPACE
