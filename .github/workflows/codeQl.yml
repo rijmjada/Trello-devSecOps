@@ -18,16 +18,15 @@ jobs:
           
       - name: Install dependencies
         run: npm install
-      
-      # Code Analysis with CodeQL
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v1
+
+  workflow-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          languages: javascript
-          
-      - name: Analyze code with CodeQL
-        uses: github/codeql-action/analyze@v1
-        
-      # Unit Testing with Jest
-      - name: Run Jest tests
-        run: npm test
+          persist-credentials: false
+
+      - name: Perform CodeQL Analysis
+        uses: rcowsill/workflow-scan-action@v2
