@@ -1,0 +1,31 @@
+name: CI/CD with Dependency-Check
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Dependency-Check
+      uses: docker://owasp/dependency-check:latest
+      with:
+        args: --scan /github/workspace/package-lock.json
+
+    - name: Upload Dependency-Check report
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependency-check-report
+        path: ${{ github.workspace }}/dependency-check-report.html
