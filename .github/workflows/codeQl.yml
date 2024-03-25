@@ -1,0 +1,38 @@
+name: Node.js Code Analysis and Testing
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code_analysis_and_testing:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          
+      - name: Install dependencies
+        run: npm install
+      
+      # Code Analysis with CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v1
+        with:
+          languages: javascript
+          
+      - name: Analyze code with CodeQL
+        uses: github/codeql-action/analyze@v1
+        
+      # Unit Testing with Jest
+      - name: Run Jest tests
+        run: npm test
