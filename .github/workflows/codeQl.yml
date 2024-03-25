@@ -1,12 +1,7 @@
 name: Node.js Code Analysis and Testing
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch
 
 jobs:
   code_analysis_and_testing:
