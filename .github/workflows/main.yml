@@ -4,13 +4,13 @@ on:
   workflow_dispatch
 
 jobs:
-  build:
+  security-scanning:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Install Node.js
       uses: actions/setup-node@v2
       with:
